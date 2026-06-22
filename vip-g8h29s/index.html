@@ -31,8 +31,7 @@ function all(s,c){return Array.prototype.slice.call((c||document).querySelectorA
 function cleanNumber(v){var s=String(v||'').replace(/,/g,'').replace(/[^0-9.]/g,'');var n=Number(s);return isFinite(n)&&n>0?n:0}
 function fmt(n,d){n=Number(n)||0;var s=d?String(Math.round(n*100)/100):String(Math.round(n));var p=s.split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');return p.join('.')}
 function spin(n){return Math.abs(n)<0.000001?'0':fmt(n,true)+'轉'}
-function validStored(){try{var a=JSON.parse(localStorage.getItem('vipAuth')||'null');return a&&CODES.indexOf(a.code)>-1&&Date.now()<a.expires&&Date.now()<EXPIRES_AT}catch(e){return false}}
-function login(){var code=String($('#codeInput').value||'').trim();if(CODES.indexOf(code)>-1&&Date.now()<EXPIRES_AT){localStorage.setItem('vipAuth',JSON.stringify({code:code,expires:EXPIRES_AT}));showApp()}else{$('#loginError').style.display='block'}}
+function login(){var code=String($('#codeInput').value||'').trim();if(CODES.indexOf(code)>-1&&Date.now()<EXPIRES_AT){showApp()}else{$('#loginError').style.display='block'}}
 function showApp(){$('#login').classList.add('hide');$('#app').classList.remove('hide');build();bindCalc()}
 function build(){
 $('#tabs').innerHTML=MODES.map(function(m,i){return '<button class="tab '+(i?'':'on')+'" type="button" data-mode="'+m.id+'">'+m.name+'</button>'}).join('');
@@ -42,7 +41,7 @@ function render(panel,total){var sumBet=0,sumSpins=0;all('.row',panel).forEach(f
 function calculate(input){input=input||$('.panel.active .total')||$('.total');if(!input)return;console.log('raw=',input.value,'number=',Number(input.value));var total=cleanNumber(input.value);all('.total').forEach(function(other){if(other!==input)other.value=input.value});all('.panel').forEach(function(panel){render(panel,total)});last=input.value}
 function pick(id){all('.panel').forEach(function(p){p.classList.toggle('active',p.id===id)});all('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.mode===id)});calculate($('.panel.active .total'));if(location.hash!=='#'+id)location.hash=id}
 function bindCalc(){all('.total').forEach(function(input){['input','change','keyup','paste','blur'].forEach(function(evt){input.addEventListener(evt,function(){setTimeout(function(){calculate(input)},0)})})});all('.tab').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();pick(btn.dataset.mode)})});var h=(location.hash||'#boss').slice(1);pick(document.getElementById(h)?h:'boss');setInterval(function(){var input=$('.panel.active .total');if(input&&input.value!==last)calculate(input)},250)}
-$('#loginBtn').addEventListener('click',login);$('#codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')login()});if(validStored())showApp();
+$('#loginBtn').addEventListener('click',login);$('#codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')login()});
 })();
 </script>
 </body>
