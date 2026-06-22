@@ -10,14 +10,14 @@
 </head>
 <body>
 <main class="wrap">
-<section class="login" id="login"><div class="inner"><h1>爆分彈夾配置器</h1><p>請輸入授權碼。授權碼有效至 2026-06-25 23:59:59。</p><label>授權碼<input id="codeInput" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="0001"></label><button class="go" id="loginBtn" type="button">進入</button><div class="err" id="loginError">授權碼錯誤或已過期。</div></div></section>
+<section class="login" id="login"><div class="inner"><h1>爆分彈夾配置器</h1><p>請輸入授權碼。授權碼有效至 2026-07-22 23:59:59。</p><label>授權碼<input id="codeInput" type="text" inputmode="numeric" autocomplete="one-time-code" value=""></label><button class="go" id="loginBtn" type="button">進入</button><div class="err" id="loginError">授權碼錯誤或已過期。</div></div></section>
 <section id="app" class="hide"><nav class="tabs" id="tabs"></nav><div id="panels"></div></section>
 </main>
 <script>
 (function(){
 'use strict';
 var CODES=['0001','0002','0003','0004','0005','0006','0007','0008','0009','0010'];
-var EXPIRES_AT=new Date('2026-06-25T23:59:59+08:00').getTime();
+var EXPIRES_AT=new Date('2026-07-22T23:59:59+08:00').getTime();
 var BASE=20000,last='';
 var MODES=[
 {id:'boss',name:'升階打王流',rows:[['Lv1',5,500,100,''],['Lv2',10,1000,100,''],['Lv3',15,1500,100,''],['Lv4',50,3500,70,''],['Lv5',100,4500,45,''],['Lv6',200,9000,45,'']]},
